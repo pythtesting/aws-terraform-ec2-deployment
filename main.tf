@@ -112,6 +112,12 @@ resource "aws_instance" "instance_2" {
   user_data = base64encode(file("userdata2.sh"))
 }
 
+resource "aws_ec2_instance_metadata_defaults" "imdsv2" {
+  http_endpoint = "enabled"  
+  http_tokens                 = "required"
+  http_put_response_hop_limit = 1
+}
+
 resource "aws_lb" "ALB" {
   name               = "my-alb"
   internal           = false
